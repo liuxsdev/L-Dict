@@ -20,11 +20,11 @@ def printYoudao(s):
             print(phonetic)
         print("释义:")
         if 'translation' in s:
-        	    trans=s['translation']
-        	    for i in trans:
-        	        print(i)
-        	if 'explains' in s['basic']:
-        	    explains=s['basic']['explains']
+            trans=s['translation']
+            for i in trans:
+                print(i)
+        if 'explains' in s['basic']:
+            explains=s['basic']['explains']
             for i in explains:
                 print(i)
     else:
