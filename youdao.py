@@ -13,18 +13,22 @@ def getYoudao(kw):
 
 
 def printYoudao(s):
-    phonetic=s['basic']['phonetic']
-    trans=s['translation']
-    explains=s['basic']['explains']
-    print('[{}]'.format(s['word']))
-    #print(phonetic)
-    # for i in trans:
-    #     print(i)
-    print("释义:")
-    for i in explains:
-        print(i)
+    if 'basic' in s:
+        #phonetic=s['basic']['phonetic']  #如果有发音，则显示
+        trans=s['translation']
+        explains=s['basic']['explains']
+        print('[{}]'.format(s['word']))
+        #print(phonetic)
+        # for i in trans:
+        #     print(i)
+        print("释义:")
+        for i in explains:
+            print(i)
+    else:
+        print('[{}]'.format(s['word']))
+        print('无释义')
 
 if __name__ == '__main__':
-    a=getYoudao('good')
-    print(a,type(a))
+    a=getYoudao('sys')
+    #print(a,type(a))
     printYoudao(a)

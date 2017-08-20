@@ -2,7 +2,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5.QtGui import QClipboard
-from youdao import getYoudao
+from youdao import getYoudao,printYoudao
 
 class MianWindow(QWidget):
     def __init__(self):
@@ -21,7 +21,7 @@ class MianWindow(QWidget):
 
     def onClipboradChanged(self):
         clipboard = QApplication.clipboard()
-        print(getYoudao(clipboard.text()))
+        printYoudao(getYoudao(clipboard.text()))
         
 
 if __name__ == '__main__':
