@@ -30,7 +30,60 @@ def printYoudao(s):
     else:
         print('无释义')
 
+def genHTML(word):
+    data=getYoudao(word)
+    str_data=str(json.dumps(data,ensure_ascii=False)).replace('"',"'") #in js json can't use single '?? 
+    # can html be inline?
+    html='''
+    <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+<style>
+	  body{background-color:black;color:white}
+	  li {list-style-type:none;}
+</style>
+  </head>
+  <body>
+    <div id="word"></div>
+	<div id="phonetic"></div>
+	<div id="explains"></div>
+	<div id="web"></div>
+<script>
+var data=%s
+var word=document.getElementById("word");
+var phonetic=document.getElementById("phonetic");
+var explains=document.getElementById("explains");
+var web=document.getElementById("web");
+function gen(data){
+	word.innerHTML = data.word;
+	str_li = '';
+	if (data.basic.explains.length == 0)
+	{
+		explains.innerHTML = "<p>No result</p>";
+	}
+	else
+	{
+		for (var i=0;i < data.basic.explains.length;i++)
+		{
+			str_li += "<p>" + data.basic.explains[i] + "</p>";
+		}
+		explains.innerHTML = str_li;
+	}
+}
+gen(data);
+</script>
+  </body>
+</html>
+''' % str_data
+    return html
+
+
 if __name__ == '__main__':
-    a=getYoudao('sys')
+    #a=getYoudao('sys')
     #print(a,type(a))
-    printYoudao(a)
+    #printYoudao(a)
+    b=genHTML('sys')
+    print(b)
