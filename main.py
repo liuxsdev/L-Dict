@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QApplication, QWidget,QMainWindow
 from PyQt5.QtGui import QClipboard
 from PyQt5.QtCore import Qt,QUrl
 from PyQt5.QtWebKitWidgets import QWebView
-from youdao import getYoudao,printYoudao
+from youdao import getYoudao,printYoudao,genHTML
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -25,9 +25,10 @@ class MainWindow(QMainWindow):
 
     def onClipboradChanged(self):
         clipboard = QApplication.clipboard()
-        a=getYoudao(clipboard.text())
+        word=clipboard.text()
+        a=getYoudao(word)
         printYoudao(a)
-        self.show = showWin(str(a))
+        self.show = showWin(genHTML(word))
         self.show.show()
 
 
@@ -38,7 +39,9 @@ class showWin(QMainWindow):
         super(showWin, self).__init__()
         self.initUI()
     def initUI(self):
-        self.resize(280,600)
+        self.setWindowOpacity(0.7)
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.resize(650,230)
         self.browser = QWebView()
         #url = 'file:///H:/workspace/web/app/Dict/index.html'
         #self.browser.setUrl(QUrl(url))

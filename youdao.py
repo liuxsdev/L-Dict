@@ -42,7 +42,7 @@ def genHTML(word):
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
 <style>
-	  body{background-color:black;color:white}
+	  body{background-color:black;color:white;font-family:"Microsoft Yahei"}
 	  li {list-style-type:none;}
 </style>
   </head>
@@ -85,5 +85,5 @@ if __name__ == '__main__':
     #a=getYoudao('sys')
     #print(a,type(a))
     #printYoudao(a)
-    b=genHTML('sys')
+    b=genHTML('size')
     print(b)
