@@ -35,47 +35,47 @@ def genHTML(word):
     str_data=str(json.dumps(data,ensure_ascii=False)).replace('"',"'") #in js json can't use single '?? 
     # can html be inline?
     html='''
-    <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
-<style>
-	  body{background-color:black;color:white;font-family:"Microsoft Yahei"}
-	  li {list-style-type:none;}
-</style>
-  </head>
-  <body>
-    <div id="word"></div>
-	<div id="phonetic"></div>
-	<div id="explains"></div>
-	<div id="web"></div>
-<script>
-var data=%s
-var word=document.getElementById("word");
-var phonetic=document.getElementById("phonetic");
-var explains=document.getElementById("explains");
-var web=document.getElementById("web");
-function gen(data){
-	word.innerHTML = data.word;
-	str_li = '';
-	if (data.basic.explains.length == 0)
-	{
-		explains.innerHTML = "<p>No result</p>";
-	}
-	else
-	{
-		for (var i=0;i < data.basic.explains.length;i++)
-		{
-			str_li += "<p>" + data.basic.explains[i] + "</p>";
-		}
-		explains.innerHTML = str_li;
-	}
-}
-gen(data);
-</script>
-  </body>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Bootstrap 101 Template</title>
+    <!-- Bootstrap CSS-->
+    <link href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    </script>
+</head>
+<body>
+    <div class="" id="app">
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">youdao </div>
+            <!-- List group -->
+            <ul class="list-group">
+                <li class="list-group-item" v-for="item in youdao.basic.explains" v-text="item">item</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+    var yd = %s
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            youdao:yd,
+        }
+    })
+
+    </script>
+</body>
+
 </html>
 ''' % str_data
     return html
@@ -85,5 +85,5 @@ if __name__ == '__main__':
     #a=getYoudao('sys')
     #print(a,type(a))
     #printYoudao(a)
-    b=genHTML('size')
+    b=genHTML('good')
     print(b)

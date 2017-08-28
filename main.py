@@ -1,10 +1,11 @@
 
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget,QMainWindow
+from PyQt5.QtWidgets import QApplication, QWidget,QMainWindow,QPushButton
 from PyQt5.QtGui import QClipboard
 from PyQt5.QtCore import Qt,QUrl
-from PyQt5.QtWebKitWidgets import QWebView
+from PyQt5.QtWebEngineWidgets import QWebEngineView
 from youdao import getYoudao,printYoudao,genHTML
+import time
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -39,14 +40,15 @@ class showWin(QMainWindow):
         super(showWin, self).__init__()
         self.initUI()
     def initUI(self):
-        self.setWindowOpacity(0.7)
+        #self.setWindowOpacity(0.7)
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.resize(650,230)
-        self.browser = QWebView()
-        #url = 'file:///H:/workspace/web/app/Dict/index.html'
-        #self.browser.setUrl(QUrl(url))
+        self.browser = QWebEngineView()
+        # url = 'H:/workspace/git/L-Dict/test/index.html'
+        # self.browser.load(QUrl(url))
         self.browser.setHtml(self.n)
         self.setCentralWidget(self.browser)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
