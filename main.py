@@ -5,7 +5,7 @@ from PyQt5.QtGui import QClipboard
 from PyQt5.QtCore import Qt,QUrl
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from youdao import getYoudao,printYoudao,genHTML
-import time
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
