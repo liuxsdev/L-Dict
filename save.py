@@ -26,15 +26,25 @@ engine = create_engine('sqlite:///./dict/test.db')
 Base.metadata.create_all(engine)
 DBSession = sessionmaker(bind=engine)
 
+def insert(ob):
+    # 创建session对象:
+    session = DBSession()
+    # 创建新User对象:
+    #new_user = User(name='w4s')
+    #添加到session:
+    session.merge(ob)
+    #session.add(new_user)
+    # 提交即保存到数据库:
+    try:
+        session.commit()
+        print('insert success!')
+    except:
+        print('something error')
+    # 关闭session:
+    session.close()
+    
+new=User(name='w4ss')
 
-# 创建session对象:
-session = DBSession()
-# 创建新User对象:
-new_user = User(name='w3')
-# 添加到session:
-session.merge(new_user)
-#session.add(new_user)
-# 提交即保存到数据库:
-session.commit()
-# 关闭session:
-session.close()
+insert(new)
+
+
