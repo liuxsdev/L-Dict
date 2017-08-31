@@ -29,25 +29,29 @@ class MainWindow(QMainWindow):
         word=clipboard.text()
         a=getYoudao(word)
         printYoudao(a)
-        self.show = showWin(genHTML(word))
+        js="vm.youdao=%s" % str(getYoudao(word))
+        print(js)
+        self.show = showWin(js)
         self.show.show()
 
 
 
 class showWin(QMainWindow):
-    def __init__(self,n):
-        self.n=n
+    def __init__(self,js):
+        self.js=js
         super(showWin, self).__init__()
         self.initUI()
     def initUI(self):
         #self.setWindowOpacity(0.7)
-        self.setWindowFlags(Qt.FramelessWindowHint)
+        #self.setWindowFlags(Qt.FramelessWindowHint)
         self.resize(650,230)
         self.browser = QWebEngineView()
-        # url = 'H:/workspace/git/L-Dict/test/index.html'
-        # self.browser.load(QUrl(url))
-        self.browser.setHtml(self.n)
+        url = 'H:/workspace/git/L-Dict/test/index.html'
+        self.browser.load(QUrl(url))
+        self.browser.loadFinished.connect(self.runjs)
         self.setCentralWidget(self.browser)
+    def runjs(self):
+        self.browser.page().runJavaScript(self.js)
 
 
 if __name__ == '__main__':
