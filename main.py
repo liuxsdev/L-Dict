@@ -1,8 +1,8 @@
 
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget,QMainWindow,QPushButton
-from PyQt5.QtGui import QClipboard
-from PyQt5.QtCore import Qt,QUrl
+from PyQt5.QtWidgets import QApplication, QWidget,QMainWindow,QPushButton,QSystemTrayIcon,QMenu,QAction
+from PyQt5.QtGui import QClipboard,QIcon
+from PyQt5.QtCore import Qt,QUrl,QFileInfo
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from youdao import getYoudao,printYoudao,genHTML
 
@@ -16,9 +16,7 @@ class MainWindow(QMainWindow):
     def initUI(self):   
         self.setGeometry(300, 300, 300, 200)
         self.setWindowTitle('Tooltips')   
-        # self.setWindowFlags(Qt.FramelessWindowHint)
         self.show()
-
 
     def addClipbordListener(self):
         clipboard = QApplication.clipboard()
@@ -30,7 +28,7 @@ class MainWindow(QMainWindow):
         a=getYoudao(word)
         printYoudao(a)
         js="vm.youdao=%s" % str(getYoudao(word))
-        print(js)
+        #print("run js",js)
         self.show = showWin(js)
         self.show.show()
 
@@ -44,14 +42,15 @@ class showWin(QMainWindow):
     def initUI(self):
         #self.setWindowOpacity(0.7)
         #self.setWindowFlags(Qt.FramelessWindowHint)
-        self.resize(650,230)
+        #self.resize(650,330)
         self.browser = QWebEngineView()
-        url = 'H:/workspace/git/L-Dict/test/index.html'
+        url=QFileInfo("./html/index.html").absoluteFilePath()
         self.browser.load(QUrl(url))
         self.browser.loadFinished.connect(self.runjs)
         self.setCentralWidget(self.browser)
     def runjs(self):
         self.browser.page().runJavaScript(self.js)
+
 
 
 if __name__ == '__main__':
