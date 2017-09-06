@@ -7,83 +7,40 @@ def getYoudao(kw):
     url='http://fanyi.youdao.com/openapi.do?keyfrom=dictquery&key=947851566&type=data&doctype=json&version=1.1&q='+kw
     r=requests.get(url)
     res=r.json()
-    res['word']=kw
-    return res
+    word={}
+    word['query']=res['query']
+    word['translation']=res['translation']
+    word['explains']=res['basic']['explains']
+    word['web']=res['web']
+    word['phonetic']=res.get('basic',"d").get('phonetic',"c")
+    return word
 
 
 
 def printYoudao(s):
-    print('[{}]'.format(s['word']))      #show the search word
-    if 'basic' in s:
-        if 'phonetic' in s['basic']:
-            phonetic=s['basic']['phonetic']  #如果有发音，则显示
-            print(phonetic)
-        print("释义:")
-        if 'translation' in s:
-            trans=s['translation']
-            for i in trans:
-                print(i)
-        if 'explains' in s['basic']:
-            explains=s['basic']['explains']
-            for i in explains:
-                print(i)
-    else:
-        print('无释义')
+    print('\033[97m{}\033[0m'.format(s['query']))      #show the search word
+    if 'phonetic' in s['phonetic']:
+        phonetic=s['phonetic']  #如果有发音，则显示
+        print(phonetic)
+    print("\033[1;35m[释义]\033[0m")
+    if 'translation' in s:
+        trans=s['translation']
+        for i in trans:
+            print(i)
+    print("\033[1;35m[详解]\033[0m")
+    if 'explains' in s:
+        explains=s['explains']
+        for i in explains:
+            print(i)
+    print('\033[1;35m[网络释义]\033[0m')
+    if 'web' in s:
+        for i in s['web']:
+            print(i['key'],'\t',';'.join(i['value']))
 
-def genHTML(word):
-    data=getYoudao(word)
-    str_data=str(json.dumps(data,ensure_ascii=False)).replace('"',"'") #in js json can't use single '?? 
-    # can html be inline?
-    html='''
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>Bootstrap 101 Template</title>
-    <!-- Bootstrap CSS-->
-    <link href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
-    </script>
-</head>
-<body>
-    <div class="" id="app">
-        <div class="panel panel-default">
-            <!-- Default panel contents -->
-            <div class="panel-heading">youdao </div>
-            <!-- List group -->
-            <ul class="list-group">
-                <li class="list-group-item" v-for="item in youdao.basic.explains" v-text="item">item</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/vue"></script>
-    <script>
-    var yd = %s
-    var vm = new Vue({
-        el:"#app",
-        data:{
-            youdao:yd,
-        }
-    })
-
-    </script>
-</body>
-
-</html>
-''' % str_data
-    return html
 
 
 if __name__ == '__main__':
-    a=getYoudao('anthrosols')
-    print(a,type(a))
-    #printYoudao(a)
+    a=getYoudao('biochar')
+    printYoudao(a)
     #b=genHTML('good')
     #print(b)
