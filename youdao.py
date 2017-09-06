@@ -82,8 +82,8 @@ def genHTML(word):
 
 
 if __name__ == '__main__':
-    #a=getYoudao('sys')
-    #print(a,type(a))
+    a=getYoudao('anthrosols')
+    print(a,type(a))
     #printYoudao(a)
-    b=genHTML('good')
-    print(b)
+    #b=genHTML('good')
+    #print(b)
