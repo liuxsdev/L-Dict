@@ -10,9 +10,9 @@ def getYoudao(kw):
     word={}
     word['query']=res['query']
     word['translation']=res['translation']
-    word['explains']=res['basic']['explains']
-    word['web']=res['web']
-    word['phonetic']=res.get('basic',"d").get('phonetic',"c")
+    word['explains']=res.get('basic',{'explains':''}).get('explains')
+    word['web']=res.get('web',[])
+    word['phonetic']=res.get('basic',{}).get('phonetic',"c") or ''
     return word
 
 
@@ -40,7 +40,7 @@ def printYoudao(s):
 
 
 if __name__ == '__main__':
-    a=getYoudao('biochar')
+    a=getYoudao('aromatic surface')
     printYoudao(a)
     #b=genHTML('good')
     #print(b)

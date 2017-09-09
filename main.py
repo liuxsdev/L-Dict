@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QApplication, QWidget,QMainWindow,QPushButton,QSyste
 from PyQt5.QtGui import QClipboard,QIcon
 from PyQt5.QtCore import Qt,QUrl,QFileInfo
 from PyQt5.QtWebEngineWidgets import QWebEngineView
-from youdao import getYoudao,printYoudao,genHTML
+from youdao import getYoudao,printYoudao
 
 
 class MainWindow(QMainWindow):
@@ -15,7 +15,7 @@ class MainWindow(QMainWindow):
 
     def initUI(self):   
         self.setGeometry(300, 300, 300, 200)
-        self.setWindowTitle('Tooltips')   
+        self.setWindowTitle('L-Dict')   
         self.show()
 
     def addClipbordListener(self):
