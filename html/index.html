@@ -14,10 +14,10 @@
     <div class="" id="app">
         <div class="panel panel-default">
             <!-- Default panel contents -->
-            <div class="panel-heading" v-text="youdao.word"></div>
+            <div class="panel-heading" v-text="youdao.query"></div>
             <!-- List group -->
             <ul class="list-group">
-                <li class="list-group-item" v-for="item in youdao.basic.explains" v-text="item">item</li>
+                <li class="list-group-item" v-for="item in youdao.explains" v-text="item">item</li>
             </ul>
         </div>
     </div>
