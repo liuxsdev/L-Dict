@@ -12,7 +12,8 @@ def getYoudao(kw):
     word['translation']=res['translation']
     word['explains']=res.get('basic',{'explains':''}).get('explains')
     word['web']=res.get('web',[])
-    word['phonetic']=res.get('basic',{}).get('phonetic',"c") or ''
+    word['phonetic']=res.get('basic',{}).get('phonetic',"") or ''
+    #print(word)
     return word
 
 
@@ -40,7 +41,7 @@ def printYoudao(s):
 
 
 if __name__ == '__main__':
-    a=getYoudao('aromatic surface')
+    a=getYoudao('surface')
     printYoudao(a)
     #b=genHTML('good')
     #print(b)
