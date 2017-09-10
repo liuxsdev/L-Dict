@@ -8,16 +8,26 @@
     <title>Bootstrap 101 Template</title>
     <!-- Bootstrap CSS-->
     <link href="./static/bootstrap.min.css" rel="stylesheet">
-    </script>
 </head>
-<body>
+<body style="overflow-x:hidden;overflow-y:hidden">
     <div class="" id="app">
         <div class="panel panel-default">
-            <!-- Default panel contents -->
-            <div class="panel-heading" v-text="youdao.query"></div>
+            <div class="panel-heading" v-text="'【'+youdao.query+'】  有道API'"></div>
+            <!-- 释义 -->
+            <div class="panel-heading" v-text="'释义：'" data-toggle="collapse" data-target="#explains"  data-parent="#app"></div>
             <!-- List group -->
-            <ul class="list-group">
+            <ul class="list-group collapse in" id="explains">
                 <li class="list-group-item" v-for="item in youdao.explains" v-text="item">item</li>
+            </ul>
+            <!-- 翻译 -->
+            <div class="panel-heading" data-toggle="collapse" data-target="#translation" data-parent="#app">翻译</div>
+            <ul class="list-group collapse" id="translation">
+                <li class="list-group-item" v-for="item in youdao.translation" v-text="item">item</li>
+            </ul>
+            <!-- 网络释义 -->
+            <div class="panel-heading" data-toggle="collapse" data-target="#web" data-parent="#app">网络释义</div>
+            <ul class="list-group collapse" id="web">
+                <li class="list-group-item" v-for="item in youdao.web" v-text=" item.key+':'+item.value">item</li>
             </ul>
         </div>
     </div>

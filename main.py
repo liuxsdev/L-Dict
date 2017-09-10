@@ -40,9 +40,11 @@ class showWin(QMainWindow):
         super(showWin, self).__init__()
         self.initUI()
     def initUI(self):
-        #self.setWindowOpacity(0.7)
+        #self.setWindowOpacity(0.8)
         #self.setWindowFlags(Qt.FramelessWindowHint)
-        #self.resize(650,330)
+        self.setWindowFlags(Qt.WindowStaysOnTopHint)  #窗口置顶
+        self.setWindowTitle('L-Dict')
+        self.resize(650,330)
         self.browser = QWebEngineView()
         url=QFileInfo("./html/index.html").absoluteFilePath()
         self.browser.load(QUrl(url))
